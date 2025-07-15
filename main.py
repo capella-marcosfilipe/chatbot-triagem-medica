@@ -38,7 +38,7 @@ class DadosPessoaisIniciais(BaseModel):
     
 # Para a queixa do paciente
 class QueixaPaciente(BaseModel):
-    sessions_id: str
+    session_id: str
     queixa: str
     
 # Para a resposta da API Gemini
@@ -145,8 +145,17 @@ async def processar_queixa(queixa_data: QueixaPaciente):
         
         print(f"Resposta bruta do Gemini: {gemini_output_text}") # Para debugar
         
+        # --- Tratamento para remover o bloco de código Markdown ---
+        # Verifica se a resposta começa com '```json' e termina com '```'
+        if gemini_output_text.strip().startswith("```json") and gemini_output_text.strip().endswith("```"):
+            # Remove '```json' do início e '```' do final, e então remove espaços em branco
+            json_string = gemini_output_text.strip()[len("```json"):].strip()[:-len("```")].strip()
+        else:
+            # Se não estiver no formato de bloco de código, assume que é JSON puro (ou tenta)
+            json_string = gemini_output_text.strip()
+        
         # Parsear a resposta como JSON, considerando que eu tenha de fato recebido JSON
-        gemini_parsed_response = json.loads(gemini_output_text)
+        gemini_parsed_response = json.loads(json_string)
         gemini_response_model = GeminiResponse(**gemini_parsed_response)
         
         # Completar a ficha com a resposta do Gemini
