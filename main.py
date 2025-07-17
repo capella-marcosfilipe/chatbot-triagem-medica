@@ -121,9 +121,8 @@ async def processar_queixa(queixa_data: QueixaPaciente):
                         f"Oxigenação: {ficha['dados_fisiologicos'].get('oxigenacao_sangue_percentual')}%, " \
                         f"Nível de Estresse: {ficha['dados_fisiologicos'].get('nivel_estresse')}."
 
-    # --- Prompt base corrigido e inserido no backend ---
-    # Este é o prompt que será enviado para a API do Google Gemini.
-    # Ele foi ajustado para garantir o formato JSON estrito na saída.
+    # --- Prompt base ---
+    # Este é o prompt que será enviado para a API do Google Gemini para garantir o formato JSON estrito na saída.
     gemini_prompt = (
         "Você é um atendente de triagem médica para urgências ou clínicas médicas. "
         "Seu papel é ouvir as queixas e dúvidas de saúde do usuário e colher informações suficientes para apoiar o diagnóstico médico. "
