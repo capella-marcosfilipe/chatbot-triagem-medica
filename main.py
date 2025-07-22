@@ -52,6 +52,8 @@ origins = [
     "http://localhost",
     "http://localhost:4200", # Angular local
     "http://localhost:5500", # Live Server
+    "https://187.21.12.103",
+    "https://chatbot-triagem-medica-front.onrender.com",
     "http://127.0.0.1",
     "http://127.0.0.1:4200",
     "http://127.0.0.1:5500",
