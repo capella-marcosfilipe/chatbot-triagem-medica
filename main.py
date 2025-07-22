@@ -9,6 +9,7 @@ import google.generativeai as genai
 import os
 from dotenv import load_dotenv
 from contextlib import asynccontextmanager
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
@@ -46,6 +47,23 @@ app = FastAPI (
     description="Backend para um sistema de triagem médica utilizando a API do Google Gemini. Trata-se de um teste de conceito do projeto de PIBIC da ETC/UNICAP do aluno Marcos Filipe G. Capella.",
     lifespan=lifespan
 )
+# --- Configuração do CORS ---
+# Permite que o frontend Angular (localhost:4200) se comunique com este backend.
+origins = [
+    "http://localhost",
+    "http://localhost:4200",
+    "http://127.0.0.1",
+    "http://127.0.0.1:4200",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+# --- Fim da Configuração do CORS ---
 
 # Variáveis globais para simular o armazenamento da ficha de atendimento.
 ficha_de_atendimento_db: Dict[str, Dict[str, Any]] = {}
