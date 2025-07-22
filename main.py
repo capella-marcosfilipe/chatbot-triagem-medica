@@ -48,12 +48,13 @@ app = FastAPI (
     lifespan=lifespan
 )
 # --- Configuração do CORS ---
-# Permite que o frontend Angular (localhost:4200) se comunique com este backend.
 origins = [
     "http://localhost",
-    "http://localhost:4200",
+    "http://localhost:4200", # Angular local
+    "http://localhost:5500", # Live Server
     "http://127.0.0.1",
     "http://127.0.0.1:4200",
+    "http://127.0.0.1:5500",
 ]
 
 app.add_middleware(
